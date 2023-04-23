@@ -32,13 +32,6 @@ AnimationViewContainer::~AnimationViewContainer()
 void AnimationViewContainer::registerRegion()
 {
     if (!m_regionMonitor) {
-        QDBusInterface interface("org.deepin.dde.XEventMonitor1", "/org/deepin/dde/XEventMonitor1",
-                                 "org.deepin.dde.XEventMonitor1",
-                                 QDBusConnection::sessionBus());
-        if (!interface.isValid()) {
-            qWarning(dwLog()) << "registerRegion error." << interface.lastError().message();
-            return;
-        }
         m_regionMonitor = new DRegionMonitor(this);
         m_regionMonitor->setCoordinateType(DRegionMonitor::Original);
         connect(m_regionMonitor, &DRegionMonitor::buttonRelease, this, &AnimationViewContainer::regionMonitorHide, Qt::UniqueConnection);
